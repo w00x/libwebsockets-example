@@ -7,10 +7,10 @@ static int callback_dumb_increment(struct lws *wsi,
                                    void *user, void *in, size_t len)
 {
     switch (reason) {
-        case LWS_CALLBACK_ESTABLISHED: // just log message that someone is connecting
+        case LWS_CALLBACK_ESTABLISHED:
             printf("connection established\n");
             break;
-        case LWS_CALLBACK_RECEIVE: { // the funny part
+        case LWS_CALLBACK_RECEIVE: {
             unsigned char *buf = (unsigned char*) malloc(LWS_SEND_BUFFER_PRE_PADDING + len +
                                                          LWS_SEND_BUFFER_POST_PADDING);
 
@@ -25,7 +25,6 @@ static int callback_dumb_increment(struct lws *wsi,
 
             lws_write(wsi, &buf[LWS_SEND_BUFFER_PRE_PADDING], len, LWS_WRITE_TEXT);
 
-            // release memory back into the wild
             free(buf);
             break;
         }
